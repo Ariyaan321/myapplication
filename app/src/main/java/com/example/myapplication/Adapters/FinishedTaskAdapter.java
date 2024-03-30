@@ -14,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.RecyclerViewClickListener;
-import com.example.myapplication.model.TodoModel;
+import com.example.myapplication.model.PropertyModel;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class FinishedTaskAdapter extends RecyclerView.Adapter<FinishedTaskAdapter.MyViewHolder> {
-    ArrayList<TodoModel> arrayList;
+    ArrayList<PropertyModel> arrayList;
     Context context;
 
     final private RecyclerViewClickListener clickListener;
 
-    public FinishedTaskAdapter(Context context, ArrayList<TodoModel> arrayList, RecyclerViewClickListener clickListener) {
+    public FinishedTaskAdapter(Context context, ArrayList<PropertyModel> arrayList, RecyclerViewClickListener clickListener) {
         this.arrayList = arrayList;
         this.context = context;
         this.clickListener = clickListener;

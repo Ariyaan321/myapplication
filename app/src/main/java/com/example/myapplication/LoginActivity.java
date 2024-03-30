@@ -87,9 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         final HashMap<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
+        String apiKey = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/auth/login/";
 
-        //String apiKey = "https://todoappyt.herokuapp.com/api/todo/auth/login";
-        String apiKey = "https://android-node-api.onrender.com/api/login";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 apiKey, new JSONObject(params), new Response.Listener<JSONObject>() {

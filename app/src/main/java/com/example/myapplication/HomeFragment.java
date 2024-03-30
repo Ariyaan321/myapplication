@@ -1,6 +1,8 @@
 
 package com.example.myapplication;
 
+import static java.lang.Integer.valueOf;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -34,10 +36,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Adapters.TodoListAdapter;
+import com.example.myapplication.Adapters.PropertyListAdapter;
 import com.example.myapplication.UtilsService.SharedPreferenceClass;
 import com.example.myapplication.interfaces.RecyclerViewClickListener;
-import com.example.myapplication.model.TodoModel;
+import com.example.myapplication.model.PropertyModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -53,11 +55,11 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     FloatingActionButton floatingActionButton;
     SharedPreferenceClass sharedPreferenceClass;
     String token;
-    TodoListAdapter todoListAdapter;
+    PropertyListAdapter propertyListAdapter;
     RecyclerView recyclerView;
     TextView empty_tv;
     ProgressBar progressBar;
-    ArrayList<TodoModel> arrayList;
+    ArrayList<PropertyModel> arrayList;
 
     public HomeFragment() {
     }
@@ -77,6 +79,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
             public void onClick(View v) {
                 showAlertDialog();
             }
+            // take input for new property to rent
         });
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -87,7 +90,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         recyclerView.setHasFixedSize(true);
 
 
-        getTasks();
+        getProperties();
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -120,11 +123,15 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         View alertLayout = inflater.inflate(R.layout.custom_dialog_layout, null);
 
         final EditText title_field = alertLayout.findViewById(R.id.title);
+        final  EditText city_field = alertLayout.findViewById(R.id.city);
+        final  EditText locality_field = alertLayout.findViewById(R.id.locality);
+        final  EditText img_url_field = alertLayout.findViewById(R.id.image_url);
+        final  EditText price_field = alertLayout.findViewById(R.id.price);
         final EditText description_field = alertLayout.findViewById(R.id.description);
 
         final AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setView(alertLayout)
-                .setTitle("Add Task")
+                .setTitle("Rent property")
                 .setPositiveButton("Add", null)
                 .setNegativeButton("Cancel", null)
                 .create();
@@ -138,9 +145,13 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     @Override
                     public void onClick(View v) {
                         String title = title_field.getText().toString();
+                        String city = city_field.getText().toString();
+                        String locality = locality_field.getText().toString();
+                        String image_url = img_url_field.getText().toString();
+                        String price = price_field.getText().toString();
                         String description = description_field.getText().toString();
                         if(!TextUtils.isEmpty(title)) {
-                            addTask(title, description);
+                            addProperty(title,city,locality,image_url,price,description);
                             dialog.dismiss();
                         } else {
                             Toast.makeText(getActivity(), "Please enter title...", Toast.LENGTH_SHORT).show();
@@ -152,19 +163,28 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
         dialog.show();
     }
-    public void showUpdateDialog(final  String  id, String title, String description)  {
+    public void showUpdateDialog(final  String  id, String title,String city, String locality, String img_url,String price ,String description)  {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.custom_dialog_layout, null);
 
         final EditText title_field = alertLayout.findViewById(R.id.title);
+        final  EditText city_field = alertLayout.findViewById(R.id.city);
+        final  EditText locality_field = alertLayout.findViewById(R.id.locality);
+        final  EditText img_url_field = alertLayout.findViewById(R.id.image_url);
+        final  EditText price_field = alertLayout.findViewById(R.id.price);
         final EditText description_field = alertLayout.findViewById(R.id.description);
 
         title_field.setText(title);
+        city_field.setText(city);
+        locality_field.setText(locality);
+        img_url_field.setText(img_url);
+        price_field.setText(price);
         description_field.setText(description);
+
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setView(alertLayout)
-                .setTitle("Update Task")
+                .setTitle("Update Property")
                 .setPositiveButton("Update", null)
                 .setNegativeButton("Cancel", null)
                 .create();
@@ -177,9 +197,13 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     @Override
                     public void onClick(View v) {
                         String title = title_field.getText().toString();
+                        String city = city_field.getText().toString();
+                        String locality = locality_field.getText().toString();
+                        String img_url = img_url_field.getText().toString();
+                        String price = price_field.getText().toString();
                         String description = description_field.getText().toString();
 
-                        updateTask(id, title, description);
+                        updateProperty(id, title,city,locality,img_url,price, description);
                         alertDialog.dismiss();
                     }
                 });
@@ -195,7 +219,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getTasks();
+                        getProperties();
                     }
                 })
                 .create();
@@ -207,7 +231,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteTodo(id, position);
+                        deleteProperty(id, position);
                         alertDialog.dismiss();
                     }
                 });
@@ -216,13 +240,13 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
         alertDialog.show();
     }
-    public void showFinishedTaskDialog(final String id, final int position) {
+    public void showBookPropertyDialog(final String id, final int position) {
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setTitle("Move to finished task?")
+                .setTitle("want to book for rent?")
                 .setPositiveButton("Yes", null)
                 .setNegativeButton("No", null)
                 .create();
-
+// this will intented to other page
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -230,7 +254,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        updateToFinishTodo(id, position);
+                        updateBookedProperty(id, position);
                         alertDialog.dismiss();
                     }
                 });
@@ -243,11 +267,11 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
 
 
-    // Get all todo task method
-    public void getTasks() {
+    // Get all property task method and update propertyListAdapter to change list
+    public void getProperties() {
         arrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
-        String url = "https://todoappyt.herokuapp.com/api/todo";
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
@@ -255,7 +279,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
             public void onResponse(JSONObject response) {
                 try {
                     if(response.getBoolean("success")) {
-                        JSONArray jsonArray = response.getJSONArray("todos");
+                        JSONArray jsonArray = response.getJSONArray("propertys");
 
                         if(jsonArray.length() == 0) {
                             empty_tv.setVisibility(View.VISIBLE);
@@ -264,16 +288,20 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                             for(int i = 0; i < jsonArray.length(); i ++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                                TodoModel todoModel = new TodoModel(
+                                PropertyModel propertyModel = new PropertyModel(
                                         jsonObject.getString("_id"),
                                         jsonObject.getString("title"),
+                                        jsonObject.getString("city"),
+                                        jsonObject.getString("locality"),
+                                        jsonObject.getString("imageUrl"),
+                                        jsonObject.getString("price"),
                                         jsonObject.getString("description")
                                 );
-                                arrayList.add(todoModel);
+                                arrayList.add(propertyModel);
                             }
-
-                            todoListAdapter = new TodoListAdapter(getActivity(), arrayList, HomeFragment.this);
-                            recyclerView.setAdapter(todoListAdapter);
+                            // adding property to list
+                            propertyListAdapter = new PropertyListAdapter(getActivity(), arrayList, HomeFragment.this);
+                            recyclerView.setAdapter(propertyListAdapter);
                         }
 
                     }
@@ -296,7 +324,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
                 String body;
 
-//                final String statusCode = String.valueOf(error.networkResponse.statusCode);
+//               final String statusCode = String.valueOf(error.networkResponse.statusCode);
 
                 try {
                     body = new String(error.networkResponse.data,"UTF-8");
@@ -340,9 +368,9 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
 
 
-    // Delete Todo Method
-    private void deleteTodo(final String id, final  int position) {
-        String url = "https://todoappyt.herokuapp.com/api/todo/"+id;
+    // Delete Property Method
+    private void deleteProperty(final String id, final  int position) {
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/"+id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null
                 , new Response.Listener<JSONObject>() {
@@ -352,7 +380,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     if(response.getBoolean("success")) {
                         Toast.makeText(getActivity(), response.getString("msg"), Toast.LENGTH_SHORT).show();
                         arrayList.remove(position);
-                        todoListAdapter.notifyItemRemoved(position);
+                        propertyListAdapter.notifyItemRemoved(position);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -370,12 +398,16 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(jsonObjectRequest);
     }
-    // Add Todo Task Method
-    private void addTask(String title, String description) {
-        String url = " https://todoappyt.herokuapp.com/api/todo";
+    // Add Property Task Method
+    private void addProperty(String title,String city, String locality, String img_url,String price ,String description ) {
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/";
 
         HashMap<String, String> body = new HashMap<>();
         body.put("title", title);
+        body.put("city", city);
+        body.put("locality",locality);
+        body.put("imageUrl",img_url);
+        body.put("price",price);
         body.put("description", description);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -385,7 +417,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                 try {
                     if(response.getBoolean("success")) {
                         Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
-                        getTasks();
+                        getProperties();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -426,11 +458,15 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(jsonObjectRequest);
     }
-    // Update Todo Task Method
-    private  void  updateTask(String id, String title, String description) {
-        String url = "https://todoappyt.herokuapp.com/api/todo/"+id;
+    // Update Property Task Method
+    private  void  updateProperty(String id, String title,String city, String locality, String img_url,String price ,String description) {
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/"+id;
         HashMap<String, String> body = new HashMap<>();
         body.put("title", title);
+        body.put("city", city);
+        body.put("locality",locality);
+        body.put("imageUrl",img_url);
+        body.put("price",price);
         body.put("description", description);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(body),
@@ -439,7 +475,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     public void onResponse(JSONObject response) {
                         try {
                             if(response.getBoolean("success")) {
-                                getTasks();
+                                getProperties();
                                 Toast.makeText(getActivity(), response.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -467,10 +503,10 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         requestQueue.add(jsonObjectRequest);
     }
     // Update to finished task
-    private void updateToFinishTodo(String id,final int position) {
-        String url = "https://todoappyt.herokuapp.com/api/todo/"+id;
+    private void updateBookedProperty(String id,final int position) {
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/"+id;
         HashMap<String, String> body = new HashMap<>();
-        body.put("finished", "true");
+        body.put("booked", "true");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(body),
                 new Response.Listener<JSONObject>() {
@@ -479,9 +515,9 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                         try {
                             if(response.getBoolean("success")) {
                                 arrayList.remove(position);
-                                getTasks();
+                                getProperties();
 
-                                todoListAdapter.notifyItemRemoved(position);
+                                propertyListAdapter.notifyItemRemoved(position);
                                 Toast.makeText(getActivity(), response.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -515,14 +551,16 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
     @Override
     public void onLongItemClick(int position) {
-        showUpdateDialog(arrayList.get(position).getId(), arrayList.get(position).getTitle(), arrayList.get(position).getDescription());
+        showUpdateDialog(arrayList.get(position).getId(), arrayList.get(position).getTitle(), arrayList.get(position).getCity(),
+                arrayList.get(position).getLocality(),arrayList.get(position).getImageUrl(),arrayList.get(position).getPrice(),arrayList.get(position).getDescription());
         Toast.makeText(getActivity(), "Position "+ position, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onEditButtonClick(int position) {
-        showUpdateDialog(arrayList.get(position).getId(), arrayList.get(position).getTitle(), arrayList.get(position).getDescription());
+        showUpdateDialog(arrayList.get(position).getId(), arrayList.get(position).getTitle(), arrayList.get(position).getCity(),
+                arrayList.get(position).getLocality(),arrayList.get(position).getImageUrl(),arrayList.get(position).getPrice(),arrayList.get(position).getDescription());
     }
 
     @Override
@@ -533,7 +571,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
     @Override
     public void onDoneButtonClick(int position) {
-        showFinishedTaskDialog(arrayList.get(position).getId(), position);
+        showBookPropertyDialog(arrayList.get(position).getId(), position);
         Toast.makeText(getActivity(), "Position "+ position, Toast.LENGTH_SHORT).show();
     }
 }

@@ -16,8 +16,8 @@
         app:cardUseCompatPadding="true"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="104dp"
             android:src="@drawable/logo"
             />
 

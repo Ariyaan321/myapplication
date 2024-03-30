@@ -16,13 +16,44 @@
         android:padding="15dp"
         android:singleLine="true"
         />
-
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/city"
+        android:hint="City"
+        android:padding="15dp"
+        android:singleLine="true"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locality"
+        android:hint="Locality"
+        android:padding="15dp"
+        android:singleLine="true"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_url"
+        android:hint="Image url"
+        android:padding="15dp"
+        android:singleLine="true"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"
+        android:hint="Price"
+        android:inputType="number"
+        android:padding="15dp"
+        android:singleLine="true"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:hint="Description"
-        android:layout_marginTop="20dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingLeft="15dp"

@@ -28,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Adapters.FinishedTaskAdapter;
 import com.example.myapplication.UtilsService.SharedPreferenceClass;
 import com.example.myapplication.interfaces.RecyclerViewClickListener;
-import com.example.myapplication.model.TodoModel;
+import com.example.myapplication.model.PropertyModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +48,7 @@ public class FinishedTaskFragment extends Fragment implements RecyclerViewClickL
     RecyclerView recyclerView;
     TextView empty_tv;
     ProgressBar progressBar;
-    ArrayList<TodoModel> arrayList;
+    ArrayList<PropertyModel> arrayList;
 
     public FinishedTaskFragment() {
     }
@@ -97,9 +97,13 @@ public class FinishedTaskFragment extends Fragment implements RecyclerViewClickL
                             for(int i = 0; i < jsonArray.length(); i ++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                                TodoModel todoModel = new TodoModel(
+                                PropertyModel todoModel = new PropertyModel(
                                         jsonObject.getString("_id"),
                                         jsonObject.getString("title"),
+                                        jsonObject.getString("city"),
+                                        jsonObject.getString("locality"),
+                                        jsonObject.getString("imageUrl"),
+                                        jsonObject.getString("price"),
                                         jsonObject.getString("description")
                                 );
                                 arrayList.add(todoModel);

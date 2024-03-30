@@ -86,9 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-        //https://android-node-api.onrender.com
-        //String apiKey = "https://todoappyt.herokuapp.com/api/todo/auth/register";
-        String apiKey = "https://android-node-api.onrender.com/api/register";
+
+        String apiKey = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/auth/register";
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 apiKey, new JSONObject(params), new Response.Listener<JSONObject>() {

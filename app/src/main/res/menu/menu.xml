@@ -5,11 +5,11 @@
         android:checkableBehavior="single"
         >
         <item
-            android:title="Home"
+            android:title="Rent"
             android:id="@+id/action_home"
             />
         <item
-            android:title="Finished Task"
+            android:title="Explore"
             android:id="@+id/action_finished_task"
             />
         <item
