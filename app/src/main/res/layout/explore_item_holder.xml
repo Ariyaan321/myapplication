@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple"
+        android:background="@color/card_face"
         android:padding="10dp"
         >
         <ImageView
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/task_title"
+            android:id="@+id/property_title"
             android:text="Title"
             android:textColor="#fff"
             android:textSize="20sp"
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/location"
-            android:layout_alignRight="@+id/task_title"
+            android:layout_alignRight="@+id/property_title"
             android:text="Location"
             android:textColor="#fff"
             android:textSize="15sp"
@@ -105,7 +105,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:visibility="gone"
-        android:background="@color/purple"
+        android:background="@color/card_drop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/accordian_body"
@@ -125,7 +125,7 @@
             android:textColor="#fff"
             />
         <TextView
-            android:id="@+id/task_description"
+            android:id="@+id/property_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"

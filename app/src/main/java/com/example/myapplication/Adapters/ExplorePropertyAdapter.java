@@ -37,11 +37,11 @@ public class ExplorePropertyAdapter extends RecyclerView.Adapter<ExploreProperty
         View view = LayoutInflater.from(context).inflate(R.layout.explore_item_holder, parent, false);
 
         final MyViewHolder myViewHolder = new MyViewHolder(view);
-
-        int[] androidColors = view.getResources().getIntArray(R.array.androidcolors);
-        int randomColors = androidColors[new Random().nextInt(androidColors.length)];
-
-        myViewHolder.accordian_title.setBackgroundColor(randomColors);
+//        for random color of cards
+//        int[] androidColors = view.getResources().getIntArray(R.array.androidcolors);
+//        int randomColors = androidColors[new Random().nextInt(androidColors.length)];
+//
+//        myViewHolder.accordian_title.setBackgroundColor(randomColors);
 
         myViewHolder.arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +88,10 @@ public class ExplorePropertyAdapter extends RecyclerView.Adapter<ExploreProperty
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            titlePv = (TextView) itemView.findViewById(R.id.task_title);
+            titlePv = (TextView) itemView.findViewById(R.id.property_title);
             pricePv = (TextView) itemView.findViewById(R.id.price);
             locationPv = (TextView) itemView.findViewById(R.id.location);
-            descriptionPv = (TextView) itemView.findViewById(R.id.task_description);
+            descriptionPv = (TextView) itemView.findViewById(R.id.property_description);
             accordian_title = (CardView) itemView.findViewById(R.id.accordian_title);
             accordian_body = (RelativeLayout) itemView.findViewById(R.id.accordian_body);
             arrow = (ImageView) itemView.findViewById(R.id.arrow);

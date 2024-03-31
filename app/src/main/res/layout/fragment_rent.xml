@@ -31,7 +31,7 @@
         android:text="Rent property"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/darkblue"
+        android:textColor="@color/not_available"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"

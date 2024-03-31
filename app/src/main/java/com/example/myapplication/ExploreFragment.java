@@ -217,7 +217,7 @@ public class ExploreFragment extends Fragment implements RecyclerViewClickListen
         Log.d("inputs",body.toString());
         String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/explore/search";
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, new JSONObject(body), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

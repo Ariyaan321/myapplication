@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorPrimaryDark">#0C0C0C</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="shade_black">#403B3B</color>
+    <color name="shade_black">#272424</color>
     <color name="white">#ffffff</color>
     <color name="purple">#5D3FD3</color>
-
-
-
-    <item name="green" type="color">#8BC34A</item>
-    <item name="orange" type="color">#D1A522</item>
-    <item name="red" type="color">#E34439</item>
-    <item name="darkblue" type="color">#03A9F4</item>
+    <color name="card_drop">#9683E1</color>
+    <color name="card_face">#6A60F8</color>
+    <color name="main_bg">#0A090E</color>
+    <color name="search_btn">#8167E5</color>
+    <color name="not_available">#5731EA</color>
 
     <color name="gray">#888787</color>
 
 
     <integer-array name="androidcolors">
-        <item>@color/green</item>
-        <item>@color/orange</item>
-        <item>@color/red</item>
-        <item>@color/darkblue</item>
+
     </integer-array>
 </resources>

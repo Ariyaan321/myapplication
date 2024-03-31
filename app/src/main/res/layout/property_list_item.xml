@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple"
+        android:background="@color/card_face"
         android:padding="10dp"
         >
         <ImageView
@@ -41,7 +41,7 @@
             android:textSize="20sp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="280dp"
             android:layout_marginTop="115dp"
             android:textStyle="bold"
@@ -49,13 +49,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/task_title"
+            android:id="@+id/card_title"
             android:text="Title"
             android:textColor="#fff"
             android:textSize="20sp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="115dp"
             android:textStyle="bold"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/location"
-            android:layout_alignRight="@+id/task_title"
+            android:layout_alignRight="@+id/card_title"
             android:text="Location"
             android:textColor="#fff"
             android:textSize="15sp"
@@ -85,7 +85,7 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="175dp"
         android:padding="5dp"
-        android:background="@color/purple"
+        android:background="@color/card_drop"
         android:visibility="gone">
 
         <TextView
@@ -100,7 +100,7 @@
             android:textColor="#fff"
             />
         <TextView
-            android:id="@+id/task_description"
+            android:id="@+id/card_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"

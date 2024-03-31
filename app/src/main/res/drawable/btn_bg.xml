@@ -12,7 +12,7 @@
         android:right="10dp"
         />
     <solid
-        android:color="#A19B9B"
+        android:color="@color/purple"
         />
 
 </shape>

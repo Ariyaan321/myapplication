@@ -11,9 +11,12 @@
         android:inputType="text"
         android:textSize="15dp"
         android:hint="city"
+        android:background="@drawable/input_field"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/city"
         />
     <EditText
@@ -22,21 +25,26 @@
         android:inputType="text"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
+        android:background="@drawable/input_field"
         android:textSize="15dp"
         android:hint="locality"
         android:id="@+id/locality"
         android:layout_below="@+id/city"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
         />
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginRight="20dp"
         android:layout_toRightOf="@+id/city"
         android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
-        android:background="@color/darkblue"
-        android:src="@android:drawable/ic_menu_search" />
+        android:background="@color/search_btn"
+        android:src="@android:drawable/ic_menu_search"
+        app:shapeAppearanceOverlay="@style/criclebroder"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -74,7 +82,7 @@
         android:text="No properties to display"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/red"
+        android:textColor="@color/not_available"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"
