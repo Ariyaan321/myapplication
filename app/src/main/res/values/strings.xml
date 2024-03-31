@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDo App</string>
+    <string name="app_name">Kirayedaar.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">navigation_drawer_open</string>

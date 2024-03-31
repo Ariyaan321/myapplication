@@ -2,8 +2,9 @@ package com.example.myapplication.model;
 
 public class PropertyModel {
     private String id, title,city,locality,imageUrl,price, description;
+     private Boolean booked;
 
-    public PropertyModel(String id, String title, String city, String locality, String imageUrl, String price, String description) {
+    public PropertyModel(String id, String title, String city, String locality, String imageUrl, String price, String description, Boolean booked) {
         this.id = id;
         this.title = title;
         this.city = city;
@@ -11,10 +12,15 @@ public class PropertyModel {
         this.imageUrl = imageUrl;
         this.price = price;
         this.description = description;
+        this.booked = booked;
     }
 
     public String getId() {
         return id;
+    }
+
+    public Boolean getBooked() {
+        return booked;
     }
 
     public String getTitle() {

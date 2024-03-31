@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         final HashMap<String, String> params = new HashMap<>();
-        params.put("name", name);
+        params.put("username", name);
         params.put("email", email);
         params.put("password", password);
 
@@ -119,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         JSONObject obj = new JSONObject(res);
                         Toast.makeText(RegisterActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Log.d("error,","hi");
                         progressBar.setVisibility(View.GONE);
                     } catch (JSONException | UnsupportedEncodingException je) {
                         je.printStackTrace();

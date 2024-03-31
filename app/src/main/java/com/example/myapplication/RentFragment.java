@@ -51,7 +51,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements RecyclerViewClickListener {
+public class RentFragment extends Fragment implements RecyclerViewClickListener {
     FloatingActionButton floatingActionButton;
     SharedPreferenceClass sharedPreferenceClass;
     String token;
@@ -61,13 +61,13 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     ProgressBar progressBar;
     ArrayList<PropertyModel> arrayList;
 
-    public HomeFragment() {
+    public RentFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_rent, container, false);
 
         sharedPreferenceClass = new SharedPreferenceClass(getContext());
         token = sharedPreferenceClass.getValue_string("token");
@@ -145,8 +145,8 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     @Override
                     public void onClick(View v) {
                         String title = title_field.getText().toString();
-                        String city = city_field.getText().toString();
-                        String locality = locality_field.getText().toString();
+                        String city =  city_field.getText().toString().toLowerCase();
+                        String locality = locality_field.getText().toString().toLowerCase();
                         String image_url = img_url_field.getText().toString();
                         String price = price_field.getText().toString();
                         String description = description_field.getText().toString();
@@ -197,8 +197,8 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                     @Override
                     public void onClick(View v) {
                         String title = title_field.getText().toString();
-                        String city = city_field.getText().toString();
-                        String locality = locality_field.getText().toString();
+                        String city = city_field.getText().toString().toLowerCase();
+                        String locality = locality_field.getText().toString().toLowerCase();
                         String img_url = img_url_field.getText().toString();
                         String price = price_field.getText().toString();
                         String description = description_field.getText().toString();
@@ -240,29 +240,6 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
         alertDialog.show();
     }
-    public void showBookPropertyDialog(final String id, final int position) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setTitle("want to book for rent?")
-                .setPositiveButton("Yes", null)
-                .setNegativeButton("No", null)
-                .create();
-// this will intented to other page
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button button = ((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateBookedProperty(id, position);
-                        alertDialog.dismiss();
-                    }
-                });
-            }
-        });
-
-        alertDialog.show();
-    }
 
 
 
@@ -295,12 +272,14 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
                                         jsonObject.getString("locality"),
                                         jsonObject.getString("imageUrl"),
                                         jsonObject.getString("price"),
-                                        jsonObject.getString("description")
+                                        jsonObject.getString("description"),
+                                        jsonObject.getBoolean("booked")
+
                                 );
                                 arrayList.add(propertyModel);
                             }
                             // adding property to list
-                            propertyListAdapter = new PropertyListAdapter(getActivity(), arrayList, HomeFragment.this);
+                            propertyListAdapter = new PropertyListAdapter(getActivity(), arrayList, RentFragment.this);
                             recyclerView.setAdapter(propertyListAdapter);
                         }
 
@@ -458,6 +437,8 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(jsonObjectRequest);
     }
+
+
     // Update Property Task Method
     private  void  updateProperty(String id, String title,String city, String locality, String img_url,String price ,String description) {
         String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/"+id;
@@ -502,47 +483,8 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(jsonObjectRequest);
     }
-    // Update to finished task
-    private void updateBookedProperty(String id,final int position) {
-        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/"+id;
-        HashMap<String, String> body = new HashMap<>();
-        body.put("booked", "true");
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(body),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if(response.getBoolean("success")) {
-                                arrayList.remove(position);
-                                getProperties();
 
-                                propertyListAdapter.notifyItemRemoved(position);
-                                Toast.makeText(getActivity(), response.getString("msg"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                return params;
-            }
-        };
-
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(jsonObjectRequest);
-    }
 
     @Override
     public void onItemClick(int position) {
@@ -571,8 +513,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
     @Override
     public void onDoneButtonClick(int position) {
-        showBookPropertyDialog(arrayList.get(position).getId(), position);
-        Toast.makeText(getActivity(), "Position "+ position, Toast.LENGTH_SHORT).show();
+
     }
 }
 

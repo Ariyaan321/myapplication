@@ -32,6 +32,32 @@
             android:layout_marginLeft="10dp"
 
             />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/call"
+            android:src="@android:drawable/stat_sys_phone_call"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contact"
+            android:text="Contact us"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:textStyle="bold"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +67,7 @@
             android:textSize="20sp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="280dp"
             android:layout_marginTop="115dp"
             android:textStyle="bold"
@@ -55,7 +81,7 @@
             android:textSize="20sp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="115dp"
             android:textStyle="bold"
@@ -77,16 +103,15 @@
             />
 
     </RelativeLayout>
-
     <RelativeLayout
-        android:id="@+id/accordian_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="175dp"
-        android:padding="5dp"
+        android:visibility="gone"
         android:background="@color/purple"
-        android:visibility="gone">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accordian_body"
+        android:padding="5dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="175dp">
 
         <TextView
             android:id="@+id/heading_description"
@@ -109,32 +134,6 @@
             android:text="Description: At 12AM"
             android:textColor="#fff" />
 
-        <ImageView
-            android:id="@+id/deleteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/task_description"
-            android:src="@drawable/ic_delete" />
 
-        <ImageView
-            android:id="@+id/editBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/deleteBtn"
-            android:src="@drawable/ic_edit" />
-
-        <ImageView
-            android:id="@+id/doneBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/editBtn"
-            android:src="@drawable/ic_done" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

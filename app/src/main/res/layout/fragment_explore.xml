@@ -4,24 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".RentFragment">
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="15dp"
+        android:hint="city"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/city"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:textSize="15dp"
+        android:hint="locality"
+        android:id="@+id/locality"
+        android:layout_below="@+id/city"
+        />
+    <ImageView
+        android:id="@+id/searchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/city"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/darkblue"
+        android:src="@android:drawable/ic_menu_search" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Finished Tasks"
-        android:layout_marginTop="30dp"
+        android:text="Looking for rent"
         android:gravity="center"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/gray"
         android:id="@+id/finished_task_header"
+        android:layout_below="@+id/locality"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_view"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="130dp"
         android:layout_alignParentTop="true"
         android:layout_below="@+id/finished_task_header"
         />
@@ -39,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/empty_tv"
-        android:text="You have not finished any task, yet."
+        android:text="No properties to display"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/red"

@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUserProfile() {
-        String url = " https://todoappyt.herokuapp.com/api/todo/auth";
+        String url = " https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/auth";
         final String token = sharedPreferenceClass.getValue_string("token");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     private void initDrawer() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(R.id.content, new HomeFragment());
+        ft.replace(R.id.content, new ExploreFragment());
         ft.commit();
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -162,14 +162,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setDrawerClick(int itemId) {
+
+
+        Log.d("success","setDrawerClick : " + itemId);
         switch (itemId) {
-            case 1000001:
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new FinishedTaskFragment()).commit();
+
+            case 2131296319: // explore
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new ExploreFragment()).commit();
                 break;
-            case 1000020:
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
+            case 2131296320: // rent
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new RentFragment()).commit();
                 break;
-            case 1000032:
+            case 2131296322: //logout
                 sharedPreferenceClass.clear();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
@@ -186,21 +190,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Log.d("success","setDrawerClick : " + item.getItemId());
         switch (item.getItemId()) {
-            case 1000014:
+            case 2131296328:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
 
-                String shareBody = "Hey try this to do app, it uses permanent saving of your task.";
+                String shareBody = "Hey try this Kirayedar.com app, find a house on rent or rent your house.";
 
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share Via"));
 
                 return true;
 
-            case 1000029:
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
+            case 2131296646 :
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new ExploreFragment()).commit();
                 return true;
 
         }

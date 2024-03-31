@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.RecyclerViewClickListener;
 import com.example.myapplication.model.PropertyModel;
-import com.example.myapplication.HomeFragment;
+import com.example.myapplication.RentFragment;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +24,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
     ArrayList<PropertyModel> arrayList;
     Context context;
     final private RecyclerViewClickListener clickListener;
-    public PropertyListAdapter(Context context, ArrayList<PropertyModel> arrayList, HomeFragment clickListener) {
+    public PropertyListAdapter(Context context, ArrayList<PropertyModel> arrayList, RentFragment clickListener) {
         this.arrayList = arrayList;
         this.context = context;
         this.clickListener = clickListener;
@@ -33,7 +33,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.todo_list_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.property_list_item, parent, false);
 
         final MyViewHolder myViewHolder = new MyViewHolder(view);
 
@@ -63,10 +63,13 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
         final String description = arrayList.get(position).getDescription();
         final String location = arrayList.get(position).getLocality() + " ," + arrayList.get(position).getCity();
         final String id = arrayList.get(position).getId();
-
+        final Boolean booked = arrayList.get(position).getBooked();
         holder.titlePv.setText(title);
         holder.pricePv.setText(price);
         holder.locationPv.setText(location);
+        if(booked){
+            holder.statusPv.setText("Booked");
+        }
         if(!description.equals("")) {
             holder.descriptionPv.setText(description);
         }
@@ -82,9 +85,9 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // assign card ids to View holder
         CardView accordian_title;
-        TextView titlePv, pricePv, locationPv,descriptionPv;
+        TextView titlePv, pricePv, locationPv,descriptionPv,statusPv;
         RelativeLayout accordian_body;
-        ImageView arrow, editBtn, deleteBtn, doneBtn;
+        ImageView arrow, editBtn, deleteBtn;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -97,7 +100,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
             arrow = (ImageView) itemView.findViewById(R.id.arrow);
             editBtn = (ImageView) itemView.findViewById(R.id.editBtn);
             deleteBtn = (ImageView) itemView.findViewById(R.id.deleteBtn);
-            doneBtn = (ImageView) itemView.findViewById(R.id.doneBtn);
+            statusPv = (TextView) itemView.findViewById(R.id.status);
 
 
 
@@ -130,12 +133,6 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
                 }
             });
 
-            doneBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onDoneButtonClick(getAdapterPosition());
-                }
-            });
         }
     }
 }
