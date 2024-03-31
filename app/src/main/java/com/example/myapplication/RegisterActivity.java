@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         final HashMap<String, String> params = new HashMap<>();
-        params.put("name", name);
+        params.put("username", name);
         params.put("email", email);
         params.put("password", password);
 

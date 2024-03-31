@@ -4,14 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,30 +46,40 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import android.Manifest;
+
 public class MainActivity extends AppCompatActivity {
-    SharedPreferenceClass sharedPreferenceClass;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
     private TextView user_name, user_email;
     private CircleImageView userImage;
+    private MenuItem item;
 
+    SharedPreferenceClass sharedPreferenceClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferenceClass = new SharedPreferenceClass(this);
-
+        Log.d("success", "XXXXXXXXXXXX in onCreate line : 60");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        sharedPreferenceClass = new SharedPreferenceClass(getApplicationContext());
+
         View hdView = navigationView.getHeaderView(0);
         user_name = (TextView) hdView.findViewById(R.id.username);
         user_email = (TextView) hdView.findViewById(R.id.user_email);
         userImage = (CircleImageView) hdView.findViewById(R.id.avatar);
+
+
+        // call feature
+
+        // call feature
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -81,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUserProfile() {
-        String url = " https://todoappyt.herokuapp.com/api/todo/auth";
+
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/auth/";
         final String token = sharedPreferenceClass.getValue_string("token");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -89,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     if(response.getBoolean("success")) {
+                        Log.d("success", "XXXXXXXXXXXX in JSON line 100");
                         JSONObject userObj = response.getJSONObject("user");
                         user_name.setText(userObj.getString("username"));
                         user_email.setText(userObj.getString("email"));
@@ -163,30 +182,42 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDrawerClick(int itemId) {
         switch (itemId) {
-            case 1000001:
+            case 2131231218:   // Rent
                 getSupportFragmentManager().beginTransaction().replace(R.id.content, new FinishedTaskFragment()).commit();
                 break;
-            case 1000020:
+            case 2131231217:   // Explore
                 getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
                 break;
-            case 1000032:
-                sharedPreferenceClass.clear();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-                break;
+            case 2131231219:   // Logout
+//                sharedPreferenceClass.clear();
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                finish();
+
+                // calling feature
+                logoutUser();
+
+
+
         }
     }
 
+    private void logoutUser() {
+        int PERMISSION_CODE = 100;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+        if(ContextCompat.checkSelfPermission(MainActivity.this , Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            Log.d("success", "In calling feature : PERMISSION");
+            ActivityCompat.requestPermissions(MainActivity.this , new String[]{Manifest.permission.CALL_PHONE},PERMISSION_CODE);
+        }else {
+            Log.d("success", "In calling feature");
+            Intent i = new Intent(Intent.ACTION_CALL);
+            i.setData(Uri.parse("tel:9130678858"));
+            startActivity(i);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Log.d("success", "XXXXXXXXXXXX before Switch case of onOptnsItmsSelctd linke 215"+item.getItemId());
         switch (item.getItemId()) {
             case 1000014:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);

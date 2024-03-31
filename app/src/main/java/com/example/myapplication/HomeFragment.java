@@ -575,4 +575,3 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         Toast.makeText(getActivity(), "Position "+ position, Toast.LENGTH_SHORT).show();
     }
 }
-

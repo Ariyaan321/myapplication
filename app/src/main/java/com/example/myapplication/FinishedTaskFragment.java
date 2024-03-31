@@ -80,7 +80,8 @@ public class FinishedTaskFragment extends Fragment implements RecyclerViewClickL
         arrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
 
-        String url = " https://todoappyt.herokuapp.com/api/todo/finished";
+        //String url = " https://todoappyt.herokuapp.com/api/todo/finished";
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/booked";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
@@ -177,7 +178,7 @@ public class FinishedTaskFragment extends Fragment implements RecyclerViewClickL
 
 
     public void deleteTask(final String id, final int position) {
-        String url = "https://todoappyt.herokuapp.com/api/todo/"+id;
+        String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/:"+id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null
                 , new Response.Listener<JSONObject>() {
