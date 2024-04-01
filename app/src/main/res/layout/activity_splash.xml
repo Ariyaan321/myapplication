@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".SplashActivity">
+    android:background="#000000"
+    tools:context=".SplashActivity"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -28,5 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+
         />
 </LinearLayout>

@@ -24,7 +24,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
     ArrayList<PropertyModel> arrayList;
     Context context;
     final private RecyclerViewClickListener clickListener;
-    public PropertyListAdapter(Context context, ArrayList<PropertyModel> arrayList, RentFragment clickListener) {
+    public PropertyListAdapter(Context context, ArrayList<PropertyModel> arrayList, RecyclerViewClickListener clickListener) {
         this.arrayList = arrayList;
         this.context = context;
         this.clickListener = clickListener;
@@ -39,7 +39,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
 //          for random color of cards
 //        int[] androidColors = view.getResources().getIntArray(R.array.androidcolors);
 //        int randomColors = androidColors[new Random().nextInt(androidColors.length)];
-//
+
 //        myViewHolder.accordian_title.setBackgroundColor(randomColors);
 
         myViewHolder.arrow.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +64,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
         final String location = arrayList.get(position).getLocality() + " ," + arrayList.get(position).getCity();
         final String id = arrayList.get(position).getId();
         final Boolean booked = arrayList.get(position).getBooked();
+
         holder.titlePv.setText(title);
         holder.pricePv.setText(price);
         holder.locationPv.setText(location);
@@ -91,8 +92,8 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            titlePv = (TextView) itemView.findViewById(R.id.property_title);
-            descriptionPv = (TextView) itemView.findViewById(R.id.property_description);
+            titlePv = (TextView) itemView.findViewById(R.id.card_title);
+            descriptionPv = (TextView) itemView.findViewById(R.id.card_description);
             pricePv = (TextView) itemView.findViewById(R.id.price);
             locationPv = (TextView) itemView.findViewById(R.id.location);
             accordian_title = (CardView) itemView.findViewById(R.id.accordian_title);
@@ -101,7 +102,6 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
             editBtn = (ImageView) itemView.findViewById(R.id.editBtn);
             deleteBtn = (ImageView) itemView.findViewById(R.id.deleteBtn);
             statusPv = (TextView) itemView.findViewById(R.id.status);
-
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

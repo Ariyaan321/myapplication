@@ -212,8 +212,8 @@ public class ExploreFragment extends Fragment implements RecyclerViewClickListen
         arrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> body = new HashMap<>();
-        body.put("city", "aa");
-        body.put("locality","aaa");
+        body.put("city", city);
+        body.put("locality",locality);
         Log.d("inputs",body.toString());
         String url = "https://kirayedar-com-android-node-api-97lb.onrender.com/api/kirayedar.com/explore/search";
 

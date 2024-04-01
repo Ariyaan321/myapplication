@@ -6,12 +6,14 @@
     <color name="shade_black">#272424</color>
     <color name="white">#ffffff</color>
     <color name="purple">#5D3FD3</color>
-    <color name="card_drop">#9683E1</color>
-    <color name="card_face">#6A60F8</color>
-    <color name="main_bg">#0A090E</color>
-    <color name="search_btn">#8167E5</color>
+    <color name="card_drop">#c78c75</color>
+    <color name="card_face">#8c523c</color>
+    <color name="main_bg">#000000</color>
+    <color name="card_drop_text">#000000</color>
+    <color name="search_btn">#8c523c</color>
+    <color name="search_input">#c78c75</color>
+    <color name="text_color">#faefbe</color>
     <color name="not_available">#5731EA</color>
-
     <color name="gray">#888787</color>
 
 

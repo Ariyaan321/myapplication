@@ -82,7 +82,7 @@ public class RentFragment extends Fragment implements RecyclerViewClickListener 
             // take input for new property to rent
         });
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view_rent);
         empty_tv = view.findViewById(R.id.empty_tv);
         progressBar = view.findViewById(R.id.progress_bar);
 

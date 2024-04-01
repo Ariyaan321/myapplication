@@ -12,7 +12,7 @@
         android:orientation="vertical"
         >
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="120dp"
+            android:layout_width="118dp"
             android:layout_height="120dp"
             android:src="@drawable/logo"
             android:layout_gravity="center_horizontal"
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter email..."
                     android:background="@drawable/input_field"
-                    android:textColorHint="#D3CFCF"
+                    android:textColorHint="#000000"
                     android:id="@+id/email_ET"
                     android:singleLine="true"
                     android:inputType="text"
@@ -61,12 +61,12 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter password..."
                     android:background="@drawable/input_field"
-                    android:textColorHint="#D3CFCF"
+                    android:textColorHint="#000000"
                     android:id="@+id/password_ET"
                     android:layout_marginTop="20dp"
                     android:singleLine="true"
                     android:inputType="textPassword"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     />
 
                 <Button
@@ -77,26 +77,25 @@
                     android:textSize="18sp"
                     android:id="@+id/loginBtn"
                     android:layout_marginTop="30dp"
-                    android:textColor="#fff"
-                    android:background="@drawable/btn_bg"
+                    android:textColor="@color/text_color"
+                    android:background="@color/card_face"
                     />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/shade_black"
+                    android:background="@color/text_color"
                     android:layout_margin="50dp"
                     />
 
                 <Button
+                    android:id="@+id/registerBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/card_face"
                     android:text="Create an account"
-                    android:textSize="18sp"
                     android:textAllCaps="false"
-                    android:background="@drawable/input_field"
-                    android:textColor="#ffffff"
-                    android:id="@+id/registerBtn"
-                    />
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
             </LinearLayout>
 
     </LinearLayout>
